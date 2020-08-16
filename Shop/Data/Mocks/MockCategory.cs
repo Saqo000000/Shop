@@ -1,5 +1,5 @@
 ﻿using Shop.Data.Interfaces;
-using Shop.Data.Model;
+using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
