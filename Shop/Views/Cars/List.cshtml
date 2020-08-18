@@ -1,15 +1,20 @@
-﻿@*@using Shop.ViewModels
-@model CarsListViewModel*@
+﻿@using Shop.ViewModels
+@model CarsListViewModel
 
 
 <h1>All Cars</h1>
 <h3>@Model.currentCategory</h3>
-@{
-    foreach (var car in Model.AllCars)
-    {
-        <div>
-            <h2>Model: @car.name</h2>
-            <p>Price: @car.price.ToString("c")</p>
-        </div>
-    }
-}
+<div class="row justify-content-md-center mt-5 mb-2 ">
+        @{
+            foreach (var car in Model.AllCars)
+            {
+                <div class="col col-lg-4">
+                    <img src="@car.img" class="img-thumbnail" alt="@car.name" />
+                    <h2>Model: @car.name</h2>
+                    <p>@car.shortDesc</p>
+                    <p>Price: @car.price.ToString("c")</p>
+                    <p><a class="btn btn-warning" href="#">See more</a></p>
+                </div>
+            }
+        }
+</div>
