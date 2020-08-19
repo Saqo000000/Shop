@@ -6,23 +6,44 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shop.Data;
 using Shop.Data.Interfaces;
 using Shop.Data.Mocks;
 using Shop.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using Shop.Data.Repository;
 
 namespace Shop
 {
     public class Startup
     {
+
+        private IConfigurationRoot _confString;
+        public Startup(IHostEnvironment hostenv)
+        {
+            _confString = new ConfigurationBuilder()
+            .SetBasePath(hostenv.ContentRootPath)
+            .AddJsonFile("dbsettings.json").Build();
+        }
+
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionstring = _confString.GetConnectionString("DefaultConnectionString");
+            // get connection string "DefaultConnectionString"  from dbsettings.json
+            services.AddDbContext<AppDBContent>(options =>
+                 options.UseSqlServer(connectionstring));
+
             services.AddMvc();
-            services.AddTransient<IAllCars, MockCars>();
-            services.AddTransient<ICarsCategory, MockCategory>();
+            services.AddTransient<IAllCars, CarRepository>();
+            services.AddTransient<ICarsCategory, CategoryRepository>();
+            /* services.AddTransient<IAllCars, MockCars>();
+            services.AddTransient<ICarsCategory, MockCategory>();*/
             MvcOptions compatibilities = new MvcOptions();
             compatibilities.EnableEndpointRouting = false;
         }
@@ -41,7 +62,7 @@ namespace Shop
                     name: "default",
                     pattern: "{controller=Cars}/{action=List}/{id?}");
             });
-            return;
+           /* return;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -61,7 +82,7 @@ namespace Shop
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-            });
+            });*/
         }
     }
 }

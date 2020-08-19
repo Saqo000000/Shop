@@ -54,7 +54,7 @@ namespace Shop.Data.Mocks
         public IEnumerable<Car> GetFavCars
         {
             get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+          //  set => throw new NotImplementedException();
         }
 
         public Car GetObjectCar(int carId)
