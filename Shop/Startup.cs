@@ -36,7 +36,7 @@ namespace Shop
         {
             string connectionstring = _confString.GetConnectionString("DefaultConnectionString");
             // get connection string "DefaultConnectionString"  from dbsettings.json
-            services.AddDbContext<AppDBContent>(options =>
+            services.AddDbContext<AppDBContext>(options =>
                  options.UseSqlServer(connectionstring));
 
             services.AddMvc();
@@ -62,27 +62,32 @@ namespace Shop
                     name: "default",
                     pattern: "{controller=Cars}/{action=List}/{id?}");
             });
-           /* return;
-            if (env.IsDevelopment())
+            using (var scoope = app.ApplicationServices.CreateScope())
             {
-                app.UseDeveloperExceptionPage();
+                AppDBContext content = scoope.ServiceProvider.GetRequiredService<AppDBContext>();
+                DBObjects.Initial(content);
             }
-            if (env.IsProduction())
-            {
-                app.Run(async context =>
-                {
-                    await context.Response.WriteAsync("Production!");
-                });
-            }
-            app.UseRouting();
+            /* return;
+             if (env.IsDevelopment())
+             {
+                 app.UseDeveloperExceptionPage();
+             }
+             if (env.IsProduction())
+             {
+                 app.Run(async context =>
+                 {
+                     await context.Response.WriteAsync("Production!");
+                 });
+             }
+             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });*/
+             app.UseEndpoints(endpoints =>
+             {
+                 endpoints.MapGet("/", async context =>
+                 {
+                     await context.Response.WriteAsync("Hello World!");
+                 });
+             });*/
         }
     }
 }

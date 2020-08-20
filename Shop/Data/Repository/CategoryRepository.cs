@@ -2,7 +2,7 @@
 using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,8 +11,8 @@ namespace Shop.Data.Repository
     public class CategoryRepository : ICarsCategory
     {
 
-        private readonly AppDBContent appDBContent;
-        public CategoryRepository(AppDBContent appDBContent)
+        private readonly AppDBContext appDBContent;
+        public CategoryRepository(AppDBContext appDBContent)
         {
             this.appDBContent = appDBContent;
         }

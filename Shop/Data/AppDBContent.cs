@@ -6,11 +6,12 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data.Models;
 
+
 namespace Shop.Data
 {
-    public class AppDBContent:DbContext
+    public class AppDBContext:DbContext
     {
-        public AppDBContent(DbContextOptions<AppDBContent> options):base(options)
+        public AppDBContext(DbContextOptions<AppDBContext> options):base(options)
         {
 
         }
