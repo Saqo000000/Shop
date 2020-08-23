@@ -66,7 +66,7 @@ namespace Shop
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Cars}/{action=List}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             using (var scoope = app.ApplicationServices.CreateScope())
             {
