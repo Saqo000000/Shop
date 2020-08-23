@@ -27,7 +27,7 @@ namespace Shop.Controllers
         
         public IActionResult List()
         {
-            var cars = _allCars.Cars;
+            //var cars = _allCars.Cars;
             //@ViewBag.Title = "ba ba ";
             CarsListViewModel carsList = new CarsListViewModel();
             carsList.AllCars= _allCars.Cars;

@@ -39,9 +39,14 @@ namespace Shop
             services.AddDbContext<AppDBContext>(options =>
                  options.UseSqlServer(connectionstring));
 
-            services.AddMvc();
             services.AddTransient<IAllCars, CarRepository>();
             services.AddTransient<ICarsCategory, CategoryRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShopCart.GetCart(sp));
+            services.AddMemoryCache();
+            services.AddSession();
+
+            services.AddMvc();
             /* services.AddTransient<IAllCars, MockCars>();
             services.AddTransient<ICarsCategory, MockCategory>();*/
             MvcOptions compatibilities = new MvcOptions();
@@ -55,6 +60,7 @@ namespace Shop
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
