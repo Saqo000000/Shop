@@ -46,7 +46,7 @@ namespace Shop
             services.AddMemoryCache();
             services.AddSession();
 
-            services.AddMvc();
+            services.AddMvc().AddMvcOptions(ab => ab.EnableEndpointRouting = false);
             /* services.AddTransient<IAllCars, MockCars>();
             services.AddTransient<ICarsCategory, MockCategory>();*/
             MvcOptions compatibilities = new MvcOptions();
@@ -61,7 +61,18 @@ namespace Shop
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSession();
-
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default", 
+                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "categoryFilter", 
+                    template: "Cars/{action}/{category?}",
+                    defaults:new { controller = "Cars", action = "List" });
+            });
+            return;
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

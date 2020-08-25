@@ -65,8 +65,9 @@ namespace Shop.Data
             {
                 if (category == null)
                 {
-                    var list = new Category[]{ new Category { categoryName = "electric", desc = "modern type of mashine" },
-                    new Category { categoryName = "classic", desc = "cars with inside fireing engine" } };
+                    var list = new Category[]{
+                        new Category { categoryName = "electric", desc = "modern type of mashine" },
+                        new Category { categoryName = "classic", desc = "cars with inside fireing engine" } };
                     category = new Dictionary<string, Category>();
                     foreach (var item in list)
                     {
