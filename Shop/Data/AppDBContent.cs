@@ -9,14 +9,16 @@ using Shop.Data.Models;
 
 namespace Shop.Data
 {
-    public class AppDBContext:DbContext
+    public class AppDBContext : DbContext
     {
-        public AppDBContext(DbContextOptions<AppDBContext> options):base(options)
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
 
         }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShopCartItem> ShopCartItem { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

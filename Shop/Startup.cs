@@ -39,6 +39,8 @@ namespace Shop
             services.AddDbContext<AppDBContext>(options =>
                  options.UseSqlServer(connectionstring));
 
+            services.AddTransient<IOrders, OrderRepository>();
+
             services.AddTransient<IAllCars, CarRepository>();
             services.AddTransient<ICarsCategory, CategoryRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -72,13 +74,13 @@ namespace Shop
                     template: "Cars/{action}/{category?}",
                     defaults:new { controller = "Cars", action = "List" });
             });
-            return;
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            //return;
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
             using (var scoope = app.ApplicationServices.CreateScope())
             {
                 AppDBContext content = scoope.ServiceProvider.GetRequiredService<AppDBContext>();
